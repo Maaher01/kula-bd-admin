@@ -26,9 +26,9 @@ import Editcontact from "./page/contact/Edit";
 import Imagelist from "./page/image/List";
 import Addimage from "./page/image/Add";
 import Editimage from "./page/image/Edit";
-import Sliderlist from "./page/slider/List";
-import Addslider from "./page/slider/Add";
-import Editslider from "./page/slider/Edit";
+import Herolist from "./page/herosection/List";
+import AddHero from "./page/herosection/Add";
+import EditHero from "./page/herosection/Edit";
 import Menulist from "./page/menu/List";
 import Addmenu from "./page/menu/Add";
 import Editmenu from "./page/menu/Edit";
@@ -300,26 +300,26 @@ function Main() {
             }
           ></Route>
           <Route
-            path={"/app/slider"}
+            path={"/app/hero-section"}
             element={
               <ProtectedRoute permissionId={113}>
-                <Sliderlist />
+                <Herolist />
               </ProtectedRoute>
             }
           ></Route>
           <Route
-            path={"/app/slider/add"}
+            path={"/app/hero-section/add"}
             element={
               <ProtectedRoute permissionId={114}>
-                <Addslider />
+                <AddHero />
               </ProtectedRoute>
             }
           ></Route>
           <Route
-            path={"/app/slider/edit/:id"}
+            path={"/app/hero-section/edit/:id"}
             element={
               <ProtectedRoute permissionId={115}>
-                <Editslider />
+                <EditHero />
               </ProtectedRoute>
             }
           ></Route>

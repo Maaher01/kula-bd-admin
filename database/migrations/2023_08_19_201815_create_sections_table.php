@@ -16,11 +16,11 @@ class CreateSectionsTable extends Migration
         Schema::create('sections', function (Blueprint $table) {
             $table->id();
             $table->string('_title');
-            $table->string('_subtitle')->nullable();;
-            $table->string('_image')->nullable();;
-            $table->string('_videourl')->nullable();;
-            $table->string('_link')->nullable();;
-            $table->string('_description')->nullable();;
+            $table->string('_subtitle')->nullable();
+            $table->string('_image')->nullable();
+            $table->string('_videourl')->nullable();
+            $table->string('_link')->nullable();
+            $table->string('_description')->nullable();
             $table->integer('_sort');
             $table->integer('_menuid');
             $table->tinyInteger('_status');

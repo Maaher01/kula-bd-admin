@@ -169,7 +169,7 @@ const ClippedDrawer = () => {
                 textDecoration: "none",
                 color: "rgba(44, 56, 74, .681)",
               }}
-              to="/app/contact"
+              to="/app/generalquery"
             >
               <ListItem disablePadding>
                 <ListItemButton>
@@ -196,22 +196,22 @@ const ClippedDrawer = () => {
                 </ListItemButton>
               </ListItem>
             </Link>
-            {/* <Link
+            <Link
               style={{
                 textDecoration: "none",
                 color: "rgba(44, 56, 74, .681)",
               }}
-              to="/app/slider"
+              to="/app/hero-section"
             >
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
                     <TuneIcon />
                   </ListItemIcon>
-                  <ListItemText primary={"Sliders"} />
+                  <ListItemText primary={"Hero Section"} />
                 </ListItemButton>
               </ListItem>
-            </Link> */}
+            </Link>
             <Link
               style={{
                 textDecoration: "none",

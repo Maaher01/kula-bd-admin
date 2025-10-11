@@ -58,7 +58,7 @@ return [
 		],
 		[
 			"id"      => 1004,
-			"name"    => "sliders",
+			"name"    => "hero-section",
 			"actions" => [
 				[
 					"id"     => 113,
