@@ -282,5 +282,23 @@ return [
 				]
 			]
 		],
+		[
+			"id"      => 1015,
+			"name"    => "generalquery",
+			"actions" => [
+				[
+					"id"     => 155,
+					"action" => "view"
+				],
+				[
+					"id"     => 156,
+					"action" => "edit"
+				],
+				[
+					"id"     => 157,
+					"action" => "delete"
+				]
+			]
+		],
 	]
 ];

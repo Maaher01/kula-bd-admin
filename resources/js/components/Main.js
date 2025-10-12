@@ -37,6 +37,7 @@ import Addsection from "./page/section/Add";
 import Editsection from "./page/section/Edit";
 import ComponentList from "./page/component/List";
 import Addcomponent from "./page/component/Add";
+import Editcomponent from "./page/component/Edit";
 import Reviewlist from "./page/review/List";
 import Addreview from "./page/review/Add";
 import Editreview from "./page/review/Edit";
@@ -60,6 +61,8 @@ import AddRecentVisaSuccess from "./page/recentvisasuccess/Add";
 import CounterList from "./page/counter/List";
 import AddCounter from "./page/counter/Add";
 import EditCounter from "./page/counter/Edit";
+import GeneralQueryList from "./page/generalquery/List";
+import EditGeneralQuery from "./page/generalquery/Edit";
 import EditRole from "./page/role/Edit";
 import ProtectedRoute from "./ProtectedRoute";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -388,6 +391,14 @@ function Main() {
             }
           ></Route>
           <Route
+            path={"/app/component/edit/:id"}
+            element={
+              <ProtectedRoute permissionId={127}>
+                <Editcomponent />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
             path={"/app/review"}
             element={
               <ProtectedRoute permissionId={129}>
@@ -568,6 +579,22 @@ function Main() {
             element={
               <ProtectedRoute permissionId={143}>
                 <EditCounter />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path={"/app/generalquery"}
+            element={
+              <ProtectedRoute permissionId={155}>
+                <GeneralQueryList />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path={"/app/generalquery/edit/:id"}
+            element={
+              <ProtectedRoute permissionId={156}>
+                <EditGeneralQuery />
               </ProtectedRoute>
             }
           ></Route>

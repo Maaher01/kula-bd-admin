@@ -51,11 +51,11 @@ const List = () => {
       name: "Action",
       cell: (row) => (
         <div style={{ display: "flex", gap: "10px" }}>
-          {/* <Link to={`/app/component/edit/${row.id}`} className="btn">
+          <Link to={`/app/component/edit/${row.id}`} className="btn">
             <i className="material-icons text-warning">
               <CreateIcon sx={{ color: "green" }} />
             </i>
-          </Link> */}
+          </Link>
           {hasPermission(128) && (
             <Link className="btn" onClick={() => handleOpen(row.id)}>
               <i className="material-icons text-warning">

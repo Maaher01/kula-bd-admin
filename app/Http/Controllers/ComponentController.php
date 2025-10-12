@@ -9,26 +9,6 @@ use Illuminate\Support\Facades\Validator;
 class ComponentController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -77,8 +57,10 @@ class ComponentController extends Controller
      */
     public function show(Request $request)
     {
-        $limit = $request->limit;
-        $profile = Component::paginate($limit);
+        $limit = $request->limit ?? 10;
+
+        $profile = Component::orderBy('created_at', 'desc')->paginate($limit);
+
         return response()->json(['status' => true, 'data' => $profile]);
     }
 

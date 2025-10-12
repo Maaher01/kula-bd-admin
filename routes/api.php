@@ -139,7 +139,7 @@ Route::delete('section/{section}', [SectionController::class, 'destroy']);
 
 Route::get('component', [ComponentController::class, 'show']);
 Route::post('component/add', [ComponentController::class, 'store']);
-Route::post('component/edit/{id}', [ComponentController::class, 'edit']);
+Route::get('component/edit/{id}', [ComponentController::class, 'edit']);
 Route::post('component/update/{id}', [ComponentController::class, 'update']);
 Route::delete('component/{component}', [ComponentController::class, 'destroy']);
 
