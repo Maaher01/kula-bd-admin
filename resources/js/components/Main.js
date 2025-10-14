@@ -281,7 +281,7 @@ function Main() {
           <Route
             path={"/app/image"}
             element={
-              <ProtectedRoute>
+              <ProtectedRoute permissionId={156}>
                 <Imagelist />
               </ProtectedRoute>
             }
@@ -289,7 +289,7 @@ function Main() {
           <Route
             path={"/app/image/add"}
             element={
-              <ProtectedRoute>
+              <ProtectedRoute permissionId={157}>
                 <Addimage />
               </ProtectedRoute>
             }
@@ -297,7 +297,7 @@ function Main() {
           <Route
             path={"/app/image/edit/:id"}
             element={
-              <ProtectedRoute>
+              <ProtectedRoute permissionId={158}>
                 <Editimage />
               </ProtectedRoute>
             }
@@ -587,14 +587,6 @@ function Main() {
             element={
               <ProtectedRoute permissionId={155}>
                 <GeneralQueryList />
-              </ProtectedRoute>
-            }
-          ></Route>
-          <Route
-            path={"/app/generalquery/edit/:id"}
-            element={
-              <ProtectedRoute permissionId={156}>
-                <EditGeneralQuery />
               </ProtectedRoute>
             }
           ></Route>

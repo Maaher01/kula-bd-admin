@@ -114,6 +114,7 @@ Route::get('image', [ImageController::class, 'show']);
 Route::post('image/add', [ImageController::class, 'store']);
 Route::get('image/edit/{id}', [ImageController::class, 'edit']);
 Route::post('image/update/{id}', [ImageController::class, 'update']);
+Route::delete('image/{image}', [ImageController::class, 'destroy']);
 
 Route::get('hero-section', [HeroSectionController::class, 'show']);
 Route::post('hero-section/add', [HeroSectionController::class, 'store']);

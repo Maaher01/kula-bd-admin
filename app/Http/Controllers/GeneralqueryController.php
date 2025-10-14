@@ -9,26 +9,6 @@ use Illuminate\Support\Facades\Validator;
 class GeneralqueryController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -41,13 +21,13 @@ class GeneralqueryController extends Controller
             'lastname' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:15'],
             'email' => ['required', 'string', 'max:30'],
-            
+
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json(['status' => false, 'message' => 'Validation Error', 'errors' => $validator->errors()], 202);
         }
-        
+
         $profile = Generalquery::create([
             '_firstname' => $request->firstname,
             '_lastname' => $request->lastname,
@@ -55,7 +35,7 @@ class GeneralqueryController extends Controller
             '_email' => $request->email,
             '_message' => $request->message,
             '_status' => $request->status,
-            
+
         ]);
 
         return response()->json(['status' => true, 'profile' => $profile]);
@@ -67,7 +47,7 @@ class GeneralqueryController extends Controller
      * @param  \App\Models\Generalquery  $generalquery
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,Generalquery $generalquery)
+    public function show(Request $request)
     {
         $limit = $request->limit;
         $profile = Generalquery::paginate($limit);
@@ -81,9 +61,9 @@ class GeneralqueryController extends Controller
      * @param  \App\Models\Generalquery  $generalquery
      * @return \Illuminate\Http\Response
      */
-    public function edit(Generalquery $generalquery,$id)
+    public function edit($id)
     {
-        $profile = Generalquery::where('id',$id)->first();
+        $profile = Generalquery::where('id', $id)->first();
 
         return response()->json(['status' => true, 'data' => $profile]);
     }
@@ -95,21 +75,21 @@ class GeneralqueryController extends Controller
      * @param  \App\Models\Generalquery  $generalquery
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Generalquery $generalquery)
+    public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:15'],
             'email' => ['required', 'string', 'max:30'],
-            
+
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json(['status' => false, 'message' => 'Validation Error', 'errors' => $validator->errors()], 202);
         }
-        
-        
+
+
         $profile = Generalquery::where('id', '=', $id)->update([
             '_firstname' => $request->firstname,
             '_lastname' => $request->lastname,
@@ -117,7 +97,7 @@ class GeneralqueryController extends Controller
             '_email' => $request->email,
             '_message' => $request->message,
             '_status' => $request->status,
-            
+
         ]);
 
         return response()->json(['status' => true, 'profile' => $profile]);

@@ -292,5 +292,23 @@ return [
 				],
 			]
 		],
+		[
+			"id"      => 1016,
+			"name"    => "images",
+			"actions" => [
+				[
+					"id"     => 156,
+					"action" => "view"
+				],
+				[
+					"id"     => 157,
+					"action" => "edit"
+				],
+				[
+					"id"     => 158,
+					"action" => "delete"
+				]
+			]
+		],
 	]
 ];
