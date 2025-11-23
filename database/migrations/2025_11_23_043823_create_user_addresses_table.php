@@ -22,6 +22,7 @@ class CreateUserAddressesTable extends Migration
         });
     }
 
+
     /**
      * Reverse the migrations.
      *
