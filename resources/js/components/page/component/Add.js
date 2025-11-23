@@ -62,7 +62,7 @@ const Add = () => {
         } else {
           toast("Data Inserted Successful");
         }
-        navigate("/app/component");
+        // navigate("/app/component");
       })
       .catch(() => {
         toast("An Error Occured");

@@ -591,6 +591,14 @@ function Main() {
             }
           ></Route>
           <Route
+            path={"/app/generalquery/edit/:id"}
+            element={
+              <ProtectedRoute permissionId={155}>
+                <EditGeneralQuery />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
             path={"/app/role"}
             element={
               <ProtectedRoute permissionId={151}>

@@ -7,10 +7,6 @@ import Grid from "@mui/material/Grid";
 import Layout from "../../layout/Layout";
 import BackupIcon from "@mui/icons-material/Backup";
 import { useParams } from "react-router-dom";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
 
 const Edit = () => {
   const navigate = useNavigate();
@@ -34,10 +30,6 @@ const Edit = () => {
       .catch(({ response: { data } }) => {
         toast("No Data Found");
       });
-  };
-
-  const handleChangeuniversity = (event) => {
-    setUniversityid(event.target.value);
   };
 
   const handleSubmit = (event) => {
@@ -73,10 +65,12 @@ const Edit = () => {
   return (
     <>
       <Layout>
-        <Box component={"form"} onSubmit={handleSubmit}>
+        <Box
+          component={"form"}
+          onSubmit={handleSubmit}
+          sx={{ padding: "20px 60px" }}
+        >
           <Grid container>
-            <Grid item xs={1}></Grid>
-            <Grid item xs={1}></Grid>
             <Grid item xs={11} sx={{ mt: 2 }}>
               <Button
                 variant="outlined"
@@ -102,7 +96,7 @@ const Edit = () => {
             <Grid item xs={1}></Grid>
             <Grid item xs={11}>
               <Button
-                variant={"outlined"}
+                variant={"contained"}
                 type={"submit"}
                 sx={{ mt: 3, mb: 2 }}
               >
