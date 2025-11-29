@@ -112,6 +112,9 @@ Route::delete('category/{category}', [CategoryController::class, 'destroy']);
 
 Route::get('product', [ProductController::class, 'index']);
 Route::post('product/add', [ProductController::class, 'create']);
+Route::get('product/edit/{id}', [ProductController::class, 'edit']);
+Route::post('product/update/{id}', [ProductController::class, 'update']);
+Route::delete('product/{product}', [ProductController::class, 'destroy']);
 
 Route::get('role', [RoleController::class, 'show']);
 Route::post('role/change-permissions', [RoleController::class, 'changePermission']);

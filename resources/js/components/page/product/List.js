@@ -53,14 +53,14 @@ const List = () => {
     },
     {
       name: "Remarks",
-      selector: (row) => row.remarks,
+      selector: (row) => stripHtml(row.remarks),
       center: true,
     },
     {
       name: "Action",
       cell: (row) => (
         <div style={{ display: "flex", gap: "10px" }}>
-          <Link to={`/app/category/edit/${row.id}`} className="btn">
+          <Link to={`/app/product/edit/${row.id}`} className="btn">
             <i className="material-icons text-warning">
               <CreateIcon sx={{ color: "green" }} />
             </i>
@@ -97,9 +97,9 @@ const List = () => {
     }
   };
 
-  const deleteCategory = async () => {
+  const deleteProduct = async () => {
     try {
-      await axios.delete(`/api/category/${delrow}`);
+      await axios.delete(`/api/product/${delrow}`);
       setOpen(false);
       setDelrow(null);
     } catch (error) {
@@ -147,7 +147,7 @@ const List = () => {
             <ClearIcon onClick={handleClose} sx={{ cursor: "pointer" }} />
           </Stack>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Are you sure you want to delete this category?
+            Are you sure you want to delete this item?
           </Typography>
           <Stack
             direction="row"
@@ -157,7 +157,7 @@ const List = () => {
             <Button variant="contained" onClick={handleClose}>
               Cancel
             </Button>
-            <Button variant="contained" color="error" onClick={deleteCategory}>
+            <Button variant="contained" color="error" onClick={deleteProduct}>
               Delete
             </Button>
           </Stack>
