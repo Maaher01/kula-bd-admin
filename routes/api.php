@@ -2,21 +2,23 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UsersController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SectionController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ComponentController;
+use App\Http\Controllers\SociallinkController;
+use App\Http\Controllers\HeroSectionController;
+use App\Http\Controllers\GeneralqueryController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\CompanyprofileController;
-use App\Http\Controllers\ImageController;
-use App\Http\Controllers\MenuController;
-use App\Http\Controllers\SectionController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\FaqController;
-use App\Http\Controllers\SociallinkController;
-use App\Http\Controllers\GeneralqueryController;
-use App\Http\Controllers\ComponentController;
-use App\Http\Controllers\HeroSectionController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UsersController;
+use App\Http\Controllers\ProductController;
 
 /*
 /*
@@ -101,6 +103,15 @@ Route::get('generalquery', [GeneralqueryController::class, 'show']);
 Route::post('generalquery/add', [GeneralqueryController::class, 'store']);
 Route::get('generalquery/edit/{id}', [GeneralqueryController::class, 'edit']);
 Route::post('generalquery/update/{id}', [GeneralqueryController::class, 'update']);
+
+Route::get('category', [CategoryController::class, 'index']);
+Route::post('category/add', [CategoryController::class, 'create']);
+Route::get('category/edit/{id}', [CategoryController::class, 'edit']);
+Route::post('category/update/{id}', [CategoryController::class, 'update']);
+Route::delete('category/{category}', [CategoryController::class, 'destroy']);
+
+Route::get('product', [ProductController::class, 'index']);
+Route::post('product/add', [ProductController::class, 'create']);
 
 Route::get('role', [RoleController::class, 'show']);
 Route::post('role/change-permissions', [RoleController::class, 'changePermission']);

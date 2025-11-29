@@ -34,6 +34,7 @@
 		"@mui/x-date-pickers": "^6.11.2",
 		"date-fns": "^3.6.0",
 		"dayjs": "^1.11.9",
+		"react-beautiful-dnd": "^13.1.1",
 		"react-data-table-component": "^7.5.3",
 		"react-quill": "^2.0.0",
 		"react-router-dom": "^6.15.0",

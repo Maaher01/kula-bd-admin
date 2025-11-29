@@ -12,10 +12,6 @@ import Layout from "../../layout/Layout";
 import BackupIcon from "@mui/icons-material/Backup";
 import { toast } from "react-toastify";
 
-// react Quill
-// import ReactQuill from "react-quill";
-// import "react-quill/dist/quill.snow.css";
-
 const Add = () => {
   const navigate = useNavigate();
   const [status, setStatus] = useState("");
@@ -23,9 +19,6 @@ const Add = () => {
   const [menulist, setMenulist] = useState([]);
   const [imageUrl, setImageUrl] = useState(null);
   const [img, setImg] = useState(null);
-  const [value, setValue] = useState("");
-
-  console.log(value);
 
   const handleChangestatus = (event) => {
     setStatus(event.target.value);

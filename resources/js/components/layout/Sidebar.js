@@ -9,28 +9,20 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import SettingsIcon from "@mui/icons-material/Settings";
-import FlagIcon from "@mui/icons-material/Flag";
 import { Link } from "react-router-dom";
 import TuneIcon from "@mui/icons-material/Tune";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import AddRoadIcon from "@mui/icons-material/AddRoad";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import FeedIcon from "@mui/icons-material/Feed";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
 import SegmentIcon from "@mui/icons-material/Segment";
-import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
-import SchoolIcon from "@mui/icons-material/School";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
-import SupervisedUserCircleIcon from "@mui/icons-material/SupervisedUserCircle";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import ShareIcon from "@mui/icons-material/Share";
-import EventIcon from "@mui/icons-material/Event";
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
+import CategoryIcon from "@mui/icons-material/Category";
+import FastfoodIcon from "@mui/icons-material/Fastfood";
 
 const drawerWidth = 230;
 
@@ -81,89 +73,38 @@ const ClippedDrawer = () => {
         </Toolbar>
         <Box sx={{ overflow: "auto" }}>
           <List>
-            {/* <Link
+            <Link
               style={{
                 textDecoration: "none",
                 color: "rgba(44, 56, 74, .681)",
               }}
-              to="/app/country"
+              to="/app/category"
             >
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <FlagIcon />
+                    <CategoryIcon />
                   </ListItemIcon>
-                  <ListItemText primary={"Countries"} />
-                </ListItemButton>
-              </ListItem>
-            </Link> */}
-            {/* <Link
-              style={{
-                textDecoration: "none",
-                color: "rgba(44, 56, 74, .681)",
-              }}
-              to="/app/degree"
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <WorkspacePremiumIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Degree"} />
-                </ListItemButton>
-              </ListItem>
-            </Link> */}
-            {/* <Link
-              style={{
-                textDecoration: "none",
-                color: "rgba(44, 56, 74, .681)",
-              }}
-              to="/app/university"
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <SchoolIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"University"} />
-                </ListItemButton>
-              </ListItem>
-            </Link> */}
-            {/* <Link
-              style={{
-                textDecoration: "none",
-                color: "rgba(44, 56, 74, .681)",
-              }}
-              to="/app/course"
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <MenuBookIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Course"} />
+                  <ListItemText primary={"Item Categories"} />
                 </ListItemButton>
               </ListItem>
             </Link>
-          </List>
-          <Divider />
-          <List> */}
-            {/* <Link
+            <Link
               style={{
                 textDecoration: "none",
                 color: "rgba(44, 56, 74, .681)",
               }}
-              to="/app/client"
+              to="/app/product"
             >
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <SupervisedUserCircleIcon />
+                    <FastfoodIcon />
                   </ListItemIcon>
-                  <ListItemText primary={"Clients"} />
+                  <ListItemText primary={"Food Items"} />
                 </ListItemButton>
               </ListItem>
-            </Link> */}
+            </Link>
             <Link
               style={{
                 textDecoration: "none",
@@ -176,7 +117,7 @@ const ClippedDrawer = () => {
                   <ListItemIcon>
                     <PermContactCalendarIcon />
                   </ListItemIcon>
-                  <ListItemText primary={"Form Submissions"} />
+                  <ListItemText primary={"Form Submit"} />
                 </ListItemButton>
               </ListItem>
             </Link>
@@ -294,58 +235,6 @@ const ClippedDrawer = () => {
                 </ListItemButton>
               </ListItem>
             </Link>
-
-            {/* <Link
-              style={{
-                textDecoration: "none",
-                color: "rgba(44, 56, 74, .681)",
-              }}
-              to="/app/newsfeed"
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <FeedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"News Feed"} />
-                </ListItemButton>
-              </ListItem>
-            </Link> */}
-
-            {/* <Link
-              style={{
-                textDecoration: "none",
-                color: "rgba(44, 56, 74, .681)",
-              }}
-              to="/app/counter"
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <AddCircleIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Counters"} />
-                </ListItemButton>
-              </ListItem>
-            </Link> */}
-
-            {/* <Link
-              style={{
-                textDecoration: "none",
-                color: "rgba(44, 56, 74, .681)",
-              }}
-              to="/app/recentvisasuccess"
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <WorkHistoryIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Recent Visas"} />
-                </ListItemButton>
-              </ListItem>
-            </Link> */}
-
             <Link
               style={{
                 textDecoration: "none",
@@ -411,39 +300,6 @@ const ClippedDrawer = () => {
                 </ListItemButton>
               </ListItem>
             </Link>
-            {/* <Link
-              style={{
-                textDecoration: "none",
-                color: "rgba(44, 56, 74, .681)",
-              }}
-              to="/app/event"
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <EventIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Events"} />
-                </ListItemButton>
-              </ListItem>
-            </Link> */}
-
-            {/* <Link
-              style={{
-                textDecoration: "none",
-                color: "rgba(44, 56, 74, .681)",
-              }}
-              to="/app/studentregistration"
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <AppRegistrationIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Student Reg"} />
-                </ListItemButton>
-              </ListItem>
-            </Link> */}
           </List>
         </Box>
       </Drawer>

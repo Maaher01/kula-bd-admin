@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -12,9 +14,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $limit = $request->limit;
+        $profile = Product::paginate($limit);
+        return response()->json(['status' => true, 'data' => $profile]);
     }
 
     /**
@@ -22,31 +26,58 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
-    }
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'description' => 'nullable|string',
+            'images' => 'array',
+            'images.*.image' => 'required|file|mimes:jpg,jpeg,png,webp|max:2048',
+            'images.*.is_primary' => 'boolean',
+            'images.*.sort_order' => 'integer',
+            'quantity' => 'nullable|string',
+            'remarks' => 'nullable|string',
+            'category_id' => 'required|exists:categories,id',
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation Error',
+                'errors' => $validator->errors()
+            ], 202);
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Product  $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
-    {
-        //
+        $product = Product::create([
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+            'quantity' => $request->quantity,
+            'remarks' => $request->remarks,
+            'category_id' => $request->category_id,
+        ]);
+
+        if ($request->has('images')) {
+            foreach ($request->images as $img) {
+                $file = $img['image'];
+
+                $path = $file->store('food_item_images', 'public');
+
+                $product->productImages()->create([
+                    'product_id' => $product->id,
+                    'image_path' => $path,
+                    'is_primary' => $img['is_primary'] ?? false,
+                    'sort_order' => $img['sort_order'] ?? 0,
+                ]);
+            }
+        }
+
+        return response()->json([
+            'status' => true,
+            'data' => $product->load('productImages'),
+            'message' => "Product created successfully"
+        ]);
     }
 
     /**
@@ -80,6 +111,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return response()->json(['status' => true, 'message' => 'Food item deleted successfully']);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -12,9 +13,11 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $limit = $request->limit;
+        $profile = Category::paginate($limit);
+        return response()->json(['status' => true, 'data' => $profile]);
     }
 
     /**
@@ -22,31 +25,21 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
-    }
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'message' => 'Validation Error', 'errors' => $validator->errors()], 202);
+        }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Category $category)
-    {
-        //
+        $category = Category::create([
+            'name' => $request->name,
+        ]);
+
+        return response()->json(['status' => true, 'data' => $category]);
     }
 
     /**
@@ -55,9 +48,10 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        //
+        $category = Category::where('id', $id)->first();
+        return response()->json(['status' => true, 'data' => $category]);
     }
 
     /**
@@ -67,9 +61,21 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'message' => 'Validation Error', 'errors' => $validator->errors()], 202);
+        }
+
+        $profile = Category::where('id', '=', $id)->update([
+            'name' => $request->name,
+        ]);
+
+        return response()->json(['status' => true, 'profile' => $profile]);
     }
 
     /**
@@ -80,6 +86,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return response()->json(['status' => true, 'message' => 'Category deleted successfully']);
     }
 }
