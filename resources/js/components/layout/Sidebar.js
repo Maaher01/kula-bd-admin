@@ -23,6 +23,7 @@ import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import CategoryIcon from "@mui/icons-material/Category";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
+import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 
 const drawerWidth = 230;
 
@@ -102,6 +103,22 @@ const ClippedDrawer = () => {
                     <FastfoodIcon />
                   </ListItemIcon>
                   <ListItemText primary={"Food Items"} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "rgba(44, 56, 74, .681)",
+              }}
+              to="/app/order"
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <DeliveryDiningIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Orders"} />
                 </ListItemButton>
               </ListItem>
             </Link>

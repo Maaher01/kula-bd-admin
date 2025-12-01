@@ -7,12 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-     use HasFactory;
+    use HasFactory;
 
     protected $fillable = [
         'user_id',
-        'total_amount',
-        'status',
+        'customer_name',
+        'shipping_address',
+        'customer_phone',
+        'sub_total',
+        'grand_total',
+        'payment_type',
+        'delivery_charge',
+        'checkout_date',
+        'note',
+        'order_status',
+        'payment_status'
     ];
 
     public function user()

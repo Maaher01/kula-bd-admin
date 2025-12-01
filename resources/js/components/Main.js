@@ -15,6 +15,7 @@ import EditCategory from "./page/category/Edit";
 import ProductList from "./page/product/List";
 import AddProduct from "./page/product/Add";
 import EditProduct from "./page/product/Edit";
+import OrderList from "./page/order/List";
 import Herolist from "./page/herosection/List";
 import AddHero from "./page/herosection/Add";
 import EditHero from "./page/herosection/Edit";
@@ -186,6 +187,14 @@ function Main() {
             element={
               <ProtectedRoute>
                 <EditProduct />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path={"/app/order"}
+            element={
+              <ProtectedRoute>
+                <OrderList />
               </ProtectedRoute>
             }
           ></Route>

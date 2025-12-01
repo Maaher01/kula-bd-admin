@@ -18,6 +18,7 @@ use App\Http\Controllers\HeroSectionController;
 use App\Http\Controllers\GeneralqueryController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\CompanyprofileController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 
 /*
@@ -115,6 +116,9 @@ Route::post('product/add', [ProductController::class, 'create']);
 Route::get('product/edit/{id}', [ProductController::class, 'edit']);
 Route::post('product/update/{id}', [ProductController::class, 'update']);
 Route::delete('product/{product}', [ProductController::class, 'destroy']);
+
+Route::get('order', [OrderController::class, 'index']);
+Route::get('order/edit/{id}', [OrderController::class, 'edit']);
 
 Route::get('role', [RoleController::class, 'show']);
 Route::post('role/change-permissions', [RoleController::class, 'changePermission']);
