@@ -29,7 +29,7 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        $order = Order::where('id', $id)->first();
+        $order = Order::with('orderItems.product.productImages')->where('id', $id)->first();
 
         return response()->json(['status' => true, 'data' => $order]);
     }
@@ -41,5 +41,17 @@ class OrderController extends Controller
      * @param  \App\Models\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) {}
+    public function update(Request $request, $id)
+    {
+        $order = Order::find($id);
+
+        $order->update($request->only([
+            'order_status',
+            'payment_status'
+        ]));
+
+        $order->save();
+
+        return response()->json(['status' => true, 'data' => $order->load('orderItems.product.productImages'),]);
+    }
 }

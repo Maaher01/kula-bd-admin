@@ -119,6 +119,7 @@ Route::delete('product/{product}', [ProductController::class, 'destroy']);
 
 Route::get('order', [OrderController::class, 'index']);
 Route::get('order/edit/{id}', [OrderController::class, 'edit']);
+Route::post('order/update/{id}', [OrderController::class, 'update']);
 
 Route::get('role', [RoleController::class, 'show']);
 Route::post('role/change-permissions', [RoleController::class, 'changePermission']);
