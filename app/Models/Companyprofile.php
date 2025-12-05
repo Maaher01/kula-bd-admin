@@ -18,6 +18,7 @@ class Companyprofile extends Model
         '_description',
         '_phone',
         '_website',
-        '_image'
+        '_image',
+        'vat_percentage'
     ];
 }

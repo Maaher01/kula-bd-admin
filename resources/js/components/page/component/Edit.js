@@ -144,7 +144,7 @@ const Edit = () => {
       .get(`/api/component/edit/${params.id}`)
       .then(({ data }) => {
         const alldata = data.data;
-        console.log(data);
+
         setTitle(alldata._title);
         setSubtitle(alldata._subtitle);
         setLink(alldata._link);
@@ -155,6 +155,7 @@ const Edit = () => {
         setStatus(alldata._status);
         setImageUrl(alldata._image);
         setDescription(alldata._description);
+
         toast("Data Found");
       })
       .catch(({ response: { data } }) => {

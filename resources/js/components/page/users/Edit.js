@@ -11,6 +11,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import BackupIcon from "@mui/icons-material/Backup";
 
 const Edit = () => {
   const navigate = useNavigate();
@@ -19,6 +20,8 @@ const Edit = () => {
   const [email, setEmail] = useState("");
   const [roleid, setRoleid] = useState();
   const [rolelist, setRolelist] = useState([]);
+  const [img, setImg] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
 
   const params = useParams();
 
@@ -36,9 +39,11 @@ const Edit = () => {
       .get(`/api/users/edit/${params.id}`)
       .then(({ data }) => {
         const alldata = data.data;
+
         setName(alldata.name);
         setEmail(alldata.email);
         setRoleid(alldata.role.id);
+
         toast("Data Found");
       })
       .catch(({ response: { data } }) => {
@@ -49,6 +54,8 @@ const Edit = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+
+    formData.append("image", img);
 
     axios
       .post(`/api/users/update/${params.id}`, formData)
@@ -74,6 +81,17 @@ const Edit = () => {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const handleFileUpload = (event) => {
+    const file = event.target.files[0];
+    setImg(file);
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setImageUrl(reader.result);
+    };
+    reader.readAsDataURL(file);
   };
 
   return (
@@ -110,8 +128,8 @@ const Edit = () => {
               />
             </Grid>
 
-            <Grid item xs={6}>
-              <FormControl variant="outlined" sx={{ minWidth: 975 }}>
+            <Grid item xs={12}>
+              <FormControl variant="outlined" sx={{ minWidth: 760 }}>
                 <InputLabel>User Role</InputLabel>
                 <Select
                   labelId="demo-simple-select-standard-label"
@@ -133,7 +151,28 @@ const Edit = () => {
                 </Select>
               </FormControl>
             </Grid>
-
+            <Grid item xs={6} sx={{ mt: 2 }}>
+              <Button
+                variant="outlined"
+                startIcon={<BackupIcon />}
+                component="label"
+                sx={{ marginBottom: "30px" }}
+              >
+                {" "}
+                Upload Logo
+                <input
+                  type="file"
+                  accept="image/*"
+                  hidden
+                  onChange={handleFileUpload}
+                />
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              {imageUrl && (
+                <img src={imageUrl} alt="Uploaded Image" height="150" />
+              )}
+            </Grid>
             <Grid item xs={8}>
               <Button
                 variant={"contained"}

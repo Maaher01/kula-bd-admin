@@ -16,7 +16,7 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $limit = $request->limit;
-        $orders = Order::paginate($limit);
+        $orders = Order::orderBy('created_at', 'desc')->paginate($limit);
 
         return response()->json(['status' => true, 'data' => $orders]);
     }

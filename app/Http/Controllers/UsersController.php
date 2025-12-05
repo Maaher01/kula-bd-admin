@@ -22,38 +22,6 @@ class UsersController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -82,14 +50,24 @@ class UsersController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['status' => false, 'message' => 'Validation Error', 'errors' => $validator->errors()], 202);
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation Error',
+                'errors' => $validator->errors()
+            ], 202);
         }
 
+        $path = "";
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $path = $image->store('userimages', 'public');
+        }
 
         $updatedUser = User::where('id', '=', $id)->update([
             'name' => $request->name,
             'email' => $request->email,
             'role_id' => $request->role_id,
+            'photo' => asset("/uploads") . "/" . $path
         ]);
 
         return response()->json(['status' => true, 'data' => $updatedUser]);
