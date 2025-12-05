@@ -5,12 +5,27 @@ import Layout from "../../layout/Layout";
 import Datatablecomponent from "../../Datatable";
 import { Link } from "react-router-dom";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { format } from "date-fns";
 
 const List = () => {
 	const [delrow, setDelrow] = useState(0);
 	const [searchurl, setSearchurl] = useState("/api/order");
 
 	const columns = [
+		{
+			name: "Action",
+			cell: (row) => (
+				<div style={{ display: "flex", gap: "10px" }}>
+					<Link to={`/app/order/edit/${row.id}`} className="btn">
+						<i className="material-icons text-warning">
+							<RemoveRedEyeIcon sx={{ color: "blue" }} />
+						</i>
+					</Link>
+				</div>
+			),
+			selector: (row) => row.id,
+			center: true,
+		},
 		{
 			name: "Customer Name",
 			selector: (row) => row.customer_name,
@@ -36,7 +51,7 @@ const List = () => {
 		},
 		{
 			name: "Checkout Date",
-			selector: (row) => row.checkout_date,
+			selector: (row) => formatDateTime(row.created_at),
 			center: true,
 			width: "225px",
 		},
@@ -60,20 +75,6 @@ const List = () => {
 			selector: (row) => row.payment_type,
 			center: true,
 		},
-		{
-			name: "Action",
-			cell: (row) => (
-				<div style={{ display: "flex", gap: "10px" }}>
-					<Link to={`/app/order/edit/${row.id}`} className="btn">
-						<i className="material-icons text-warning">
-							<RemoveRedEyeIcon sx={{ color: "blue" }} />
-						</i>
-					</Link>
-				</div>
-			),
-			selector: (row) => row.id,
-			center: true,
-		},
 	];
 
 	const formatPrice = (price) => {
@@ -88,6 +89,13 @@ const List = () => {
 		} else {
 			return `Tk. ${num.toFixed(2)}`; // keep 2 decimals
 		}
+	};
+
+	const formatDateTime = (datetime) => {
+		if (!datetime) return "";
+		const date = new Date(datetime);
+
+		return format(date, "MMM d, yyyy h:mm a");
 	};
 
 	const renderDatatable = () => {

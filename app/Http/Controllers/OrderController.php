@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Companyprofile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -31,7 +32,10 @@ class OrderController extends Controller
     {
         $order = Order::with('orderItems.product.productImages')->where('id', $id)->first();
 
-        return response()->json(['status' => true, 'data' => $order]);
+        $vatPercentage = CompanyProfile::first()->vat_percentage;
+        $vatAmount = ($vatPercentage / 100) * $order->sub_total;
+
+        return response()->json(['status' => true, 'data' => $order, 'vat' => $vatAmount]);
     }
 
     /**

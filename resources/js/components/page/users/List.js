@@ -17,125 +17,125 @@ import axios from "axios";
 import { hasPermission } from "../../utils/permissions";
 
 const List = () => {
-  const [delrow, setDelrow] = useState(0);
-  const [searchurl, setSearchurl] = useState("/api/users");
-  const [open, setOpen] = useState(false);
+	const [delrow, setDelrow] = useState(0);
+	const [searchurl, setSearchurl] = useState("/api/users");
+	const [open, setOpen] = useState(false);
 
-  const handleOpen = (id) => {
-    setDelrow(id);
-    setOpen(true);
-  };
+	const handleOpen = (id) => {
+		setDelrow(id);
+		setOpen(true);
+	};
 
-  const handleClose = () => setOpen(false);
+	const handleClose = () => setOpen(false);
 
-  const columns = [
-    {
-      name: "Name",
-      selector: (row) => row.name,
-      center: true,
-    },
-    {
-      name: "Email",
-      selector: (row) => row.email,
-      center: true,
-    },
-    {
-      name: "Role",
-      selector: (row) => row.role.name,
-      center: true,
-    },
-    {
-      name: "Action",
-      cell: (row) => (
-        <div style={{ display: "flex", gap: "10px" }}>
-          <Link to={`/app/users/edit/${row.id}`} className="btn">
-            <i className="material-icons text-warning">
-              <CreateIcon sx={{ color: "green" }} />
-            </i>
-          </Link>
-          {hasPermission(154) && (
-            <Link className="btn" onClick={() => handleOpen(row.id)}>
-              <i className="material-icons text-warning">
-                <DeleteIcon sx={{ color: "red" }} />
-              </i>
-            </Link>
-          )}
-        </div>
-      ),
-      selector: (row) => row.id,
-      center: true,
-    },
-  ];
+	const columns = [
+		{
+			name: "Action",
+			cell: (row) => (
+				<div style={{ display: "flex", gap: "10px" }}>
+					<Link to={`/app/users/edit/${row.id}`} className="btn">
+						<i className="material-icons text-warning">
+							<CreateIcon sx={{ color: "green" }} />
+						</i>
+					</Link>
+					{hasPermission(154) && (
+						<Link className="btn" onClick={() => handleOpen(row.id)}>
+							<i className="material-icons text-warning">
+								<DeleteIcon sx={{ color: "red" }} />
+							</i>
+						</Link>
+					)}
+				</div>
+			),
+			selector: (row) => row.id,
+			center: true,
+		},
+		{
+			name: "Name",
+			selector: (row) => row.name,
+			center: true,
+		},
+		{
+			name: "Email",
+			selector: (row) => row.email,
+			center: true,
+		},
+		{
+			name: "Role",
+			selector: (row) => row.role.name,
+			center: true,
+		},
+	];
 
-  const deleteUser = async () => {
-    try {
-      await axios.delete(`/api/users/${delrow}`);
-      setOpen(false);
-      setDelrow(null);
-    } catch (error) {
-      console.error("Delete Failed:", error);
-    }
-  };
+	const deleteUser = async () => {
+		try {
+			await axios.delete(`/api/users/${delrow}`);
+			setOpen(false);
+			setDelrow(null);
+		} catch (error) {
+			console.error("Delete Failed:", error);
+		}
+	};
 
-  const renderDatatable = () => {
-    return (
-      <Datatablecomponent
-        columns={columns}
-        url={searchurl}
-        delrow={delrow}
-      ></Datatablecomponent>
-    );
-  };
-  return (
-    <>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 400,
-            bgcolor: "background.paper",
-            border: "2px solid #000",
-            boxShadow: 24,
-            p: 4,
-          }}
-        >
-          <Stack
-            direction="row"
-            sx={{ justifyContent: "space-between", alignItems: "center" }}
-          >
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              Warning
-            </Typography>
-            <ClearIcon onClick={handleClose} sx={{ cursor: "pointer" }} />
-          </Stack>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Are you sure you want to delete this user?
-          </Typography>
-          <Stack
-            direction="row"
-            spacing={2}
-            sx={{ mt: 4, justifyContent: "end" }}
-          >
-            <Button variant="contained" onClick={handleClose}>
-              Cancel
-            </Button>
-            <Button variant="contained" color="error" onClick={deleteUser}>
-              Delete
-            </Button>
-          </Stack>
-        </Box>
-      </Modal>
-      <Layout>
-        <Grid container sx={{ padding: "60px 40px" }}>
-          {/* <Grid item xs={12}>
+	const renderDatatable = () => {
+		return (
+			<Datatablecomponent
+				columns={columns}
+				url={searchurl}
+				delrow={delrow}
+			></Datatablecomponent>
+		);
+	};
+	return (
+		<>
+			<Modal
+				open={open}
+				onClose={handleClose}
+				aria-labelledby="modal-modal-title"
+				aria-describedby="modal-modal-description"
+			>
+				<Box
+					sx={{
+						position: "absolute",
+						top: "50%",
+						left: "50%",
+						transform: "translate(-50%, -50%)",
+						width: 400,
+						bgcolor: "background.paper",
+						border: "2px solid #000",
+						boxShadow: 24,
+						p: 4,
+					}}
+				>
+					<Stack
+						direction="row"
+						sx={{ justifyContent: "space-between", alignItems: "center" }}
+					>
+						<Typography id="modal-modal-title" variant="h6" component="h2">
+							Warning
+						</Typography>
+						<ClearIcon onClick={handleClose} sx={{ cursor: "pointer" }} />
+					</Stack>
+					<Typography id="modal-modal-description" sx={{ mt: 2 }}>
+						Are you sure you want to delete this user?
+					</Typography>
+					<Stack
+						direction="row"
+						spacing={2}
+						sx={{ mt: 4, justifyContent: "end" }}
+					>
+						<Button variant="contained" onClick={handleClose}>
+							Cancel
+						</Button>
+						<Button variant="contained" color="error" onClick={deleteUser}>
+							Delete
+						</Button>
+					</Stack>
+				</Box>
+			</Modal>
+			<Layout>
+				<Grid container sx={{ padding: "60px 40px" }}>
+					{/* <Grid item xs={12}>
             <Link to="/app/users/add" className="btn">
               <Button
                 variant="contained"
@@ -146,13 +146,13 @@ const List = () => {
               </Button>
             </Link>
           </Grid> */}
-          <Grid item xs={12}>
-            {renderDatatable()}
-          </Grid>
-        </Grid>
-      </Layout>
-    </>
-  );
+					<Grid item xs={12}>
+						{renderDatatable()}
+					</Grid>
+				</Grid>
+			</Layout>
+		</>
+	);
 };
 
 export default List;

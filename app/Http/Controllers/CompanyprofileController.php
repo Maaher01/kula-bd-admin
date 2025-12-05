@@ -81,6 +81,7 @@ class CompanyprofileController extends Controller
                 '_latlong' => $request->latlong,
                 '_description' => $request->description,
                 '_website' => $request->website,
+                'vat_percentage' => $request->vatpercentage,
                 '_image' => asset("/uploads") . "/" . $path,
 
             ]);
@@ -92,7 +93,8 @@ class CompanyprofileController extends Controller
                 '_mobile' => $request->mobile,
                 '_latlong' => $request->latlong,
                 '_description' => $request->description,
-                '_website' => $request->website
+                '_website' => $request->website,
+                'vat_percentage' => $request->vatpercentage,
             ]);
         }
 

@@ -29,6 +29,8 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
+            'images' => ['array'],
+            'images.*.image' => ['required', 'file', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
 
         if ($validator->fails()) {
@@ -39,7 +41,23 @@ class CategoryController extends Controller
             'name' => $request->name,
         ]);
 
-        return response()->json(['status' => true, 'data' => $category]);
+        if ($request->has('images')) {
+            foreach ($request->images as $img) {
+                $file = $img['image'];
+
+                $path = $file->store('category_images', 'public');
+
+                $category->categoryImages()->create([
+                    'category_id' => $category->id,
+                    'image_path' => $path,
+                ]);
+            }
+        }
+
+        return response()->json([
+            'status' => true,
+            'data' => $category->load('categoryImages')
+        ]);
     }
 
     /**
@@ -50,7 +68,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::where('id', $id)->first();
+        $category = Category::with('categoryImages')->find($id);
         return response()->json(['status' => true, 'data' => $category]);
     }
 
@@ -65,17 +83,43 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
+            'images' => ['array'],
+            'images.*.image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['status' => false, 'message' => 'Validation Error', 'errors' => $validator->errors()], 202);
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation Error',
+                'errors' => $validator->errors()
+            ], 202);
         }
 
-        $profile = Category::where('id', '=', $id)->update([
+        $category = Category::with('categoryImages')->findOrFail($id);
+
+        // Update basic info
+        $category->update([
             'name' => $request->name,
         ]);
 
-        return response()->json(['status' => true, 'profile' => $profile]);
+        if ($request->has('images')) {
+            foreach ($request->images as $img) {
+                // Only process NEW uploaded files
+                if (isset($img['image']) && $img['image'] instanceof \Illuminate\Http\UploadedFile) {
+
+                    $path = $img['image']->store('category_images', 'public');
+
+                    $category->categoryImages()->create([
+                        'image_path' => $path,
+                    ]);
+                }
+            }
+        }
+
+        return response()->json([
+            'status' => true,
+            'profile' => $category->load('categoryImages')
+        ]);
     }
 
     /**

@@ -11,182 +11,144 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import BackupIcon from "@mui/icons-material/Backup";
 
 const Edit = () => {
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [roleid, setRoleid] = useState();
-  const [rolelist, setRolelist] = useState([]);
-  const [img, setImg] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+	const [name, setName] = useState("");
+	const [email, setEmail] = useState("");
+	const [roleid, setRoleid] = useState();
+	const [rolelist, setRolelist] = useState([]);
 
-  const params = useParams();
+	const params = useParams();
 
-  useEffect(() => {
-    fetchData();
-    fetchRoles();
-  }, []);
+	useEffect(() => {
+		fetchData();
+		fetchRoles();
+	}, []);
 
-  const handleChangerole = (event) => {
-    setRoleid(event.target.value);
-  };
+	const handleChangerole = (event) => {
+		setRoleid(event.target.value);
+	};
 
-  const fetchData = async () => {
-    await axios
-      .get(`/api/users/edit/${params.id}`)
-      .then(({ data }) => {
-        const alldata = data.data;
+	const fetchData = async () => {
+		await axios
+			.get(`/api/users/edit/${params.id}`)
+			.then(({ data }) => {
+				const alldata = data.data;
 
-        setName(alldata.name);
-        setEmail(alldata.email);
-        setRoleid(alldata.role.id);
+				setName(alldata.name);
+				setEmail(alldata.email);
+				setRoleid(alldata.role.id);
 
-        toast("Data Found");
-      })
-      .catch(({ response: { data } }) => {
-        toast("No Data Found");
-      });
-  };
+				toast("Data Found");
+			})
+			.catch(({ response: { data } }) => {
+				toast("No Data Found");
+			});
+	};
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		const formData = new FormData(event.currentTarget);
 
-    formData.append("image", img);
+		axios
+			.post(`/api/users/update/${params.id}`, formData)
+			.then((response) => {
+				if (response.data.errors) {
+					toast(response.data.message);
+				} else {
+					toast("Data Inserted Successfully");
+					navigate("/app/users");
+				}
+			})
+			.catch(() => {
+				toast("There was en error updating the data");
+			});
+	};
 
-    axios
-      .post(`/api/users/update/${params.id}`, formData)
-      .then((response) => {
-        if (response.data.errors) {
-          toast(response.data.message);
-        } else {
-          toast("Data Inserted Successfully");
-          navigate("/app/users");
-        }
-      })
-      .catch(() => {
-        toast("There was en error updating the data");
-      });
-  };
+	const fetchRoles = async () => {
+		axios
+			.get("/api/role")
+			.then((response) => {
+				setRolelist(response.data.data.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
 
-  const fetchRoles = async () => {
-    axios
-      .get("/api/role")
-      .then((response) => {
-        setRolelist(response.data.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+	return (
+		<>
+			<Layout>
+				<Box
+					component={"form"}
+					onSubmit={handleSubmit}
+					sx={{ padding: "20px 60px" }}
+				>
+					<Grid container spacing={2}>
+						<Grid item xs={8}>
+							<TextField
+								id="standard-basic"
+								fullWidth
+								name="name"
+								label="Name"
+								variant="outlined"
+								value={name}
+								onChange={(e) => setName(e.target.value)}
+								InputProps={{ style: { backgroundColor: "white" } }}
+							/>
+						</Grid>
+						<Grid item xs={8}>
+							<TextField
+								id="standard-basic"
+								fullWidth
+								name="email"
+								label="Email"
+								variant="outlined"
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+								InputProps={{ style: { backgroundColor: "white" } }}
+							/>
+						</Grid>
 
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0];
-    setImg(file);
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      setImageUrl(reader.result);
-    };
-    reader.readAsDataURL(file);
-  };
-
-  return (
-    <>
-      <Layout>
-        <Box
-          component={"form"}
-          onSubmit={handleSubmit}
-          sx={{ padding: "20px 60px" }}
-        >
-          <Grid container spacing={2}>
-            <Grid item xs={8}>
-              <TextField
-                id="standard-basic"
-                fullWidth
-                name="name"
-                label="Name"
-                variant="outlined"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
-            <Grid item xs={8}>
-              <TextField
-                id="standard-basic"
-                fullWidth
-                name="email"
-                label="Email"
-                variant="outlined"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                InputProps={{ style: { backgroundColor: "white" } }}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <FormControl variant="outlined" sx={{ minWidth: 760 }}>
-                <InputLabel>User Role</InputLabel>
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  value={roleid ?? ""}
-                  onChange={handleChangerole}
-                  label="Role"
-                  name="role_id"
-                  style={{ backgroundColor: "white" }}
-                >
-                  {rolelist.length === 0 ? (
-                    <MenuItem disabled>Loading roles...</MenuItem>
-                  ) : (
-                    rolelist.map((role) => (
-                      <MenuItem key={role.id} value={role.id}>
-                        {role.name}
-                      </MenuItem>
-                    ))
-                  )}
-                </Select>
-              </FormControl>
-            </Grid>
-            <Grid item xs={6} sx={{ mt: 2 }}>
-              <Button
-                variant="outlined"
-                startIcon={<BackupIcon />}
-                component="label"
-                sx={{ marginBottom: "30px" }}
-              >
-                {" "}
-                Upload Logo
-                <input
-                  type="file"
-                  accept="image/*"
-                  hidden
-                  onChange={handleFileUpload}
-                />
-              </Button>
-            </Grid>
-            <Grid item xs={12}>
-              {imageUrl && (
-                <img src={imageUrl} alt="Uploaded Image" height="150" />
-              )}
-            </Grid>
-            <Grid item xs={8}>
-              <Button
-                variant={"contained"}
-                type={"submit"}
-                sx={{ mt: 3, mb: 2 }}
-              >
-                Submit
-              </Button>
-            </Grid>
-          </Grid>
-        </Box>
-      </Layout>
-    </>
-  );
+						<Grid item xs={12}>
+							<FormControl variant="outlined" sx={{ minWidth: 760 }}>
+								<InputLabel>User Role</InputLabel>
+								<Select
+									labelId="demo-simple-select-standard-label"
+									value={roleid ?? ""}
+									onChange={handleChangerole}
+									label="Role"
+									name="role_id"
+									style={{ backgroundColor: "white" }}
+								>
+									{rolelist.length === 0 ? (
+										<MenuItem disabled>Loading roles...</MenuItem>
+									) : (
+										rolelist.map((role) => (
+											<MenuItem key={role.id} value={role.id}>
+												{role.name}
+											</MenuItem>
+										))
+									)}
+								</Select>
+							</FormControl>
+						</Grid>
+						<Grid item xs={8}>
+							<Button
+								variant={"contained"}
+								type={"submit"}
+								sx={{ mt: 3, mb: 2 }}
+							>
+								Submit
+							</Button>
+						</Grid>
+					</Grid>
+				</Box>
+			</Layout>
+		</>
+	);
 };
 
 export default Edit;

@@ -18,7 +18,6 @@ class Order extends Model
         'grand_total',
         'payment_type',
         'delivery_charge',
-        'checkout_date',
         'note',
         'order_status',
         'payment_status'

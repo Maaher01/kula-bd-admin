@@ -57,17 +57,10 @@ class UsersController extends Controller
             ], 202);
         }
 
-        $path = "";
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $path = $image->store('userimages', 'public');
-        }
-
         $updatedUser = User::where('id', '=', $id)->update([
             'name' => $request->name,
             'email' => $request->email,
             'role_id' => $request->role_id,
-            'photo' => asset("/uploads") . "/" . $path
         ]);
 
         return response()->json(['status' => true, 'data' => $updatedUser]);
