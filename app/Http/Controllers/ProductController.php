@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
@@ -144,6 +146,20 @@ class ProductController extends Controller
                         'is_primary' => $img['is_primary'] ?? false,
                         'sort_order' => $img['sort_order'] ?? 0,
                     ]);
+                }
+            }
+        }
+
+        if ($request->deleted_images) {
+            foreach ($request->deleted_images as $id) {
+                $img = ProductImage::find($id);
+
+                if ($img) {
+                    // delete file
+                    Storage::delete('public/' . $img->image_path);
+
+                    // delete DB record
+                    $img->delete();
                 }
             }
         }

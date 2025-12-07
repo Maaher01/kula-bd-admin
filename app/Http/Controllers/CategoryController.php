@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\CategoryImage;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
@@ -29,7 +31,7 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'images' => ['array'],
+            'images' => ['array', 'max:2'],
             'images.*.image' => ['required', 'file', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
 
@@ -42,6 +44,15 @@ class CategoryController extends Controller
         ]);
 
         if ($request->has('images')) {
+            $uploadCount = count($request->images);
+
+            if ($uploadCount > 2) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'You can upload only up to 2 images per category.'
+                ], 422);
+            }
+
             foreach ($request->images as $img) {
                 $file = $img['image'];
 
@@ -83,7 +94,7 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
-            'images' => ['array'],
+            'images' => ['array', 'max:2'],
             'images.*.image' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
 
@@ -96,6 +107,18 @@ class CategoryController extends Controller
         }
 
         $category = Category::with('categoryImages')->findOrFail($id);
+        $existingCount = $category->categoryImages->count();
+        $deletedCount = $request->deleted_images ? count($request->deleted_images) : 0;
+        $newUploads = $request->has('images') ? count($request->images) : 0;
+
+        $finalCount = $existingCount - $deletedCount + $newUploads;
+
+        if ($finalCount > 2) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You can upload only up to 2 images per category.'
+            ], 422);
+        }
 
         // Update basic info
         $category->update([
@@ -112,6 +135,20 @@ class CategoryController extends Controller
                     $category->categoryImages()->create([
                         'image_path' => $path,
                     ]);
+                }
+            }
+        }
+
+        if ($request->deleted_images) {
+            foreach ($request->deleted_images as $id) {
+                $img = CategoryImage::find($id);
+
+                if ($img) {
+                    // delete file
+                    Storage::delete('public/' . $img->image_path);
+
+                    // delete DB record
+                    $img->delete();
                 }
             }
         }
