@@ -21,7 +21,10 @@ class User extends Authenticatable
         'email',
         'mobile',
         'password',
-        'role_id'
+        'role_id',
+        'verified_at',
+        'otp_code',
+        'otp_expires_at',
     ];
 
     /**
@@ -32,6 +35,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'otp_code',
     ];
 
     /**
@@ -40,7 +44,8 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'otp_verified_at' => 'datetime',
+        'otp_expires_at' => 'datetime',
     ];
 
     public function role()
