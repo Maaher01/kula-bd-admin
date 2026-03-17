@@ -20,4 +20,9 @@ class Category extends Model
     {
         return $this->hasMany(CategoryImage::class);
     }
+
+    public function discounts()
+    {
+        return $this->belongsToMany(Discount::class, 'discount_category');
+    }
 }

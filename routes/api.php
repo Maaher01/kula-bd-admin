@@ -1,25 +1,27 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CompanyprofileController;
+use App\Http\Controllers\ComponentController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\FaqController;
-use App\Http\Controllers\MenuController;
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\GeneralqueryController;
+use App\Http\Controllers\HeroSectionController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\UsersController;
-use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SectionController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ComponentController;
-use App\Http\Controllers\SociallinkController;
-use App\Http\Controllers\HeroSectionController;
-use App\Http\Controllers\GeneralqueryController;
-use App\Http\Controllers\RegistrationController;
-use App\Http\Controllers\CompanyprofileController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SectionController;
+use App\Http\Controllers\SociallinkController;
+use App\Http\Controllers\UsersController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 /*
@@ -120,6 +122,14 @@ Route::delete('product/{product}', [ProductController::class, 'destroy']);
 Route::get('order', [OrderController::class, 'index']);
 Route::get('order/edit/{id}', [OrderController::class, 'edit']);
 Route::post('order/update/{id}', [OrderController::class, 'update']);
+
+Route::get('/discounts', [DiscountController::class, 'index']);
+Route::post('/discounts', [DiscountController::class, 'store']);
+Route::get('/discounts/{id}', [DiscountController::class, 'edit']);
+Route::put('/discounts/{id}', [DiscountController::class, 'update']);
+Route::delete('/discounts/{id}', [DiscountController::class, 'destroy']);
+
+Route::get('/admin/dashboard', [DashboardController::class, 'index']);
 
 Route::get('role', [RoleController::class, 'show']);
 Route::post('role/change-permissions', [RoleController::class, 'changePermission']);

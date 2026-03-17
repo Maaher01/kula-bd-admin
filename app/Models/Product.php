@@ -32,4 +32,14 @@ class Product extends Model
     {
         return $this->hasMany(OrderItem::class);
     }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function discounts()
+    {
+        return $this->belongsToMany(Discount::class, 'discount_product');
+    }
 }

@@ -16,6 +16,8 @@ class CompanyprofileController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'mobile' => ['required', 'string', 'max:15'],
+            'latitude' => ['required', 'numeric'],
+            'longitude' => ['required', 'numeric'],
         ]);
 
         if ($validator->fails()) {
@@ -34,7 +36,8 @@ class CompanyprofileController extends Controller
             '_email' => $request->email,
             '_phone' => $request->phone,
             '_mobile' => $request->mobile,
-            '_latlong' => $request->latlong,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
             '_description' => $request->description,
             '_website' => $request->website,
             '_image' => asset("/uploads") . "/" . $path,
@@ -57,7 +60,9 @@ class CompanyprofileController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'mobile' => ['required', 'string', 'max:15']
+            'mobile' => ['required', 'string', 'max:15'],
+            'latitude' => ['nullable', 'numeric'],
+            'longitude' => ['nullable', 'numeric'],
         ]);
 
         if ($validator->fails()) {
@@ -78,7 +83,8 @@ class CompanyprofileController extends Controller
                 '_email' => $request->email,
                 '_phone' => $request->phone,
                 '_mobile' => $request->mobile,
-                '_latlong' => $request->latlong,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
                 '_description' => $request->description,
                 '_website' => $request->website,
                 'vat_percentage' => $request->vatpercentage,
@@ -91,7 +97,8 @@ class CompanyprofileController extends Controller
                 '_email' => $request->email,
                 '_phone' => $request->phone,
                 '_mobile' => $request->mobile,
-                '_latlong' => $request->latlong,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
                 '_description' => $request->description,
                 '_website' => $request->website,
                 'vat_percentage' => $request->vatpercentage,

@@ -9,12 +9,12 @@ class Companyprofile extends Model
 {
     use HasFactory;
 
-
     protected $fillable = [
         '_name',
         '_email',
         '_mobile',
-        '_latlong',
+        'latitude',
+        'longitude',
         '_description',
         '_phone',
         '_website',

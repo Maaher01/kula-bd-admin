@@ -24,8 +24,9 @@ import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import CategoryIcon from "@mui/icons-material/Category";
 import FastfoodIcon from "@mui/icons-material/Fastfood";
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
+import DiscountIcon from "@mui/icons-material/Discount";
 
-const drawerWidth = 230;
+const drawerWidth = 260;
 
 const ClippedDrawer = () => {
   const [name, setName] = useState("");
@@ -61,15 +62,9 @@ const ClippedDrawer = () => {
           },
         }}
       >
-        <Toolbar
-          style={{ minHeight: "69px", borderBottom: "1px solid #d8dbe0" }}
-        >
+        <Toolbar style={{ borderBottom: "1px solid #d8dbe0" }}>
           <Link style={{ textDecoration: "none" }} to="/app/dashboard">
-            <img
-              src={imageUrl}
-              alt="nothing"
-              style={{ marginTop: "2px", width: "175px" }}
-            />
+            <img src={imageUrl} alt="nothing" style={{ width: "175px" }} />
           </Link>
         </Toolbar>
         <Box sx={{ overflow: "auto" }}>
@@ -119,6 +114,22 @@ const ClippedDrawer = () => {
                     <DeliveryDiningIcon />
                   </ListItemIcon>
                   <ListItemText primary={"Orders"} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "rgba(44, 56, 74, .681)",
+              }}
+              to="/app/discounts"
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <DiscountIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Discounts/Coupons"} />
                 </ListItemButton>
               </ListItem>
             </Link>
